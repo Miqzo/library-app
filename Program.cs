@@ -69,4 +69,18 @@ class Program
             Console.WriteLine("Book not found.");
         }
     }
+    static void ListBooks()
+    {
+        if (books.Count == 0)
+        {
+            Console.WriteLine("No books available.");
+            return;
+        }
+
+        Console.WriteLine("List of all books:");
+        foreach (var book in books)
+        {
+            Console.WriteLine($"{book.Title} by {book.Author}, {book.YearPublished}, Genre: {book.Genre}");
+        }
+    }
 }
