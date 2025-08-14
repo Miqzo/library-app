@@ -40,4 +40,18 @@ class Program
                 break;
         }
     }
+    static void AddBook()
+    {
+        Console.Write("Enter book title: ");
+        string title = Console.ReadLine();
+        Console.Write("Enter author: ");
+        string author = Console.ReadLine();
+        Console.Write("Enter year published: ");
+        int yearPublished = int.Parse(Console.ReadLine());
+        Console.Write("Enter genre: ");
+        string genre = Console.ReadLine();
+
+        books.Add(new Book { Title = title, Author = author, YearPublished = yearPublished, Genre = genre });
+        Console.WriteLine("Book added successfully.");
+    }
 }
