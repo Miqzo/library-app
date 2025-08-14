@@ -54,4 +54,19 @@ class Program
         books.Add(new Book { Title = title, Author = author, YearPublished = yearPublished, Genre = genre });
         Console.WriteLine("Book added successfully.");
     }
+    static void RemoveBook()
+    {
+        Console.Write("Enter book title to remove: ");
+        string title = Console.ReadLine();
+        var bookToRemove = books.FirstOrDefault(b => b.Title.Equals(title, StringComparison.OrdinalIgnoreCase));
+        if (bookToRemove != null)
+        {
+            books.Remove(bookToRemove);
+            Console.WriteLine("Book removed successfully.");
+        }
+        else
+        {
+            Console.WriteLine("Book not found.");
+        }
+    }
 }
