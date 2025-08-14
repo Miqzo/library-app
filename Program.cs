@@ -1,10 +1,14 @@
 ﻿namespace library_app;
+using System.IO;
+using System.Text.Json;
 
 class Program
 {
+    static string filePath = "books.json";
     static List<Book> books = new List<Book>();
     static void Main(string[] args)
     {
+        LoadBooksFromFile();
         bool exit = false;
 
         Console.WriteLine("Home Library - Choose an action.");
@@ -38,8 +42,10 @@ class Program
                     SearchBook();
                     break;
                 case "0":
-                    Console.WriteLine("Exiting...");
-                    return;
+                    SaveBooksToFile();
+                    Console.WriteLine("Exiting and saving books to file.");
+                    exit = true;
+                    break;
                 default:
                     Console.WriteLine("Please select a valid option.");
                     break;
@@ -123,6 +129,34 @@ class Program
         foreach (var book in foundBooks)
         {
             Console.WriteLine($"{book.Title} by {book.Author}, {book.YearPublished}, Genre: {book.Genre}");
+        }
+    }
+    static void SaveBooksToFile()
+    {
+        try
+        {
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            string json = JsonSerializer.Serialize(books, options);
+            File.WriteAllText(filePath, json);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error saving books to file: {ex.Message}");
+        }
+    }
+    static void LoadBooksFromFile()
+    {
+        if (File.Exists(filePath))
+        {
+            try
+            {
+                string json = File.ReadAllText(filePath);
+                books = JsonSerializer.Deserialize<List<Book>>(json) ?? new List<Book>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading books from file: {ex.Message}");
+            }
         }
     }
 }
