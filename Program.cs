@@ -101,4 +101,22 @@ class Program
             Console.WriteLine($"{book.Title} by {book.Author}, {book.YearPublished}");
         }
     }
+    static void SearchBook()
+    {
+        Console.Write("Enter book title to search: ");
+        string title = Console.ReadLine();
+        var foundBooks = books.Where(b => b.Title.Contains(title, StringComparison.OrdinalIgnoreCase)).ToList();
+
+        if (foundBooks.Count == 0)
+        {
+            Console.WriteLine("No books found with that title.");
+            return;
+        }
+
+        Console.WriteLine("Search results:");
+        foreach (var book in foundBooks)
+        {
+            Console.WriteLine($"{book.Title} by {book.Author}, {book.YearPublished}, Genre: {book.Genre}");
+        }
+    }
 }
