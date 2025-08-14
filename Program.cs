@@ -83,4 +83,22 @@ class Program
             Console.WriteLine($"{book.Title} by {book.Author}, {book.YearPublished}, Genre: {book.Genre}");
         }
     }
+    static void ListBooksByGenre()
+    {
+        Console.Write("Enter genre to filter by: ");
+        string genre = Console.ReadLine();
+        var filteredBooks = books.Where(b => b.Genre.Equals(genre, StringComparison.OrdinalIgnoreCase)).ToList();
+
+        if (filteredBooks.Count == 0)
+        {
+            Console.WriteLine("No books found in this genre.");
+            return;
+        }
+
+        Console.WriteLine($"Books in genre '{genre}':");
+        foreach (var book in filteredBooks)
+        {
+            Console.WriteLine($"{book.Title} by {book.Author}, {book.YearPublished}");
+        }
+    }
 }
